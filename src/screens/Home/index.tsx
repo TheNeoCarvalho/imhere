@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Alert,
   FlatList,
-  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -26,13 +26,23 @@ export function Home() {
   ];
 
   function handleParticimatAdd() {
-    console.log(Platform.OS == "ios" ? "Add iOS" : "Add Android");
+    if (participants.includes("neo")) {
+      Alert.alert("Participante", "Já xiste");
+      return;
+    }
   }
 
   function handleParticimatRemove(name: string) {
-    console.log(
-      Platform.OS == "ios" ? `Removeu  ${name} iOS` : `Removeu ${name} Android`
-    );
+    Alert.alert("Remover", `Remover participante ${name}?`, [
+      {
+        text: "Sim",
+        onPress: () => Alert.alert("Deletado"),
+      },
+      {
+        text: "Não",
+        style: "cancel",
+      },
+    ]);
   }
 
   return (
